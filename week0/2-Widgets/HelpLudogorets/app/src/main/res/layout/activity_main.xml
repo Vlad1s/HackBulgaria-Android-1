@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <VideoView
+        android:id="@+id/video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/view_margin" />
+
+    <ImageView
+        android:id="@+id/prev"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_below="@id/video"
+        android:layout_marginBottom="@dimen/view_margin"
+        android:layout_marginEnd="@dimen/view_margin"
+        android:layout_marginRight="@dimen/view_margin"
+        android:layout_marginTop="@dimen/view_margin"
+        android:background="@color/gray"
+        android:contentDescription="@string/desc_prev"
+        android:src="@drawable/prev" />
+
+    <ImageView
+        android:id="@+id/play_pause"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_below="@id/video"
+        android:layout_margin="@dimen/view_margin"
+        android:layout_toEndOf="@id/prev"
+        android:layout_toRightOf="@id/prev"
+        android:background="@color/gray"
+        android:contentDescription="@string/desc_play_pause"
+        android:src="@drawable/play" />
+
+    <ImageView
+        android:id="@+id/next"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_below="@id/video"
+        android:layout_margin="@dimen/view_margin"
+        android:layout_toEndOf="@id/play_pause"
+        android:layout_toRightOf="@id/play_pause"
+        android:background="@color/gray"
+        android:contentDescription="@string/desc_next"
+        android:src="@drawable/next" />
+</RelativeLayout>

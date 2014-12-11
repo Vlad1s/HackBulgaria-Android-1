@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pieces">
+        <item>@drawable/piece0</item>
+        <item>@drawable/piece1</item>
+        <item>@drawable/piece2</item>
+        <item>@drawable/piece3</item>
+        <item>@drawable/piece4</item>
+        <item>@drawable/piece5</item>
+        <item>@drawable/piece6</item>
+        <item>@drawable/piece7</item>
+        <item>@drawable/piece8</item>
+        <item>@drawable/piece9</item>
+        <item>@drawable/piece10</item>
+        <item>@drawable/piece11</item>
+        <item>@drawable/piece12</item>
+        <item>@drawable/piece13</item>
+        <item>@drawable/piece14</item>
+        <item>@drawable/piece15</item>
+    </array>
+</resources>

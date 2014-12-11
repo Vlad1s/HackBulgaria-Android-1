@@ -1,0 +1,53 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context="com.android.vlad.w0t0layouts.Hard">
+
+    <TextView
+        android:layout_width="260dp"
+        android:layout_height="135dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:layout_width="220dp"
+        android:layout_height="100dp"
+        android:background="@color/red" />
+
+    <TextView
+        android:layout_width="260dp"
+        android:layout_height="135dp"
+        android:layout_gravity="end"
+        android:background="@color/white" />
+
+    <TextView
+        android:layout_width="220dp"
+        android:layout_height="100dp"
+        android:layout_gravity="end"
+        android:background="@color/red" />
+
+    <TextView
+        android:layout_width="260dp"
+        android:layout_height="135dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white" />
+
+    <TextView
+        android:layout_width="220dp"
+        android:layout_height="100dp"
+        android:layout_gravity="bottom"
+        android:background="@color/red" />
+
+    <TextView
+        android:layout_width="260dp"
+        android:layout_height="135dp"
+        android:layout_gravity="bottom|end"
+        android:background="@color/white" />
+
+    <TextView
+        android:layout_width="220dp"
+        android:layout_height="100dp"
+        android:layout_gravity="bottom|end"
+        android:background="@color/red" />
+</FrameLayout>
