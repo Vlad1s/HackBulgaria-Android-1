@@ -20,12 +20,13 @@ public class DrawingView extends ImageView implements View.OnClickListener, Game
     private int mScore;
     private int mFrame;
     private int mDifficultyLevel;
-    private boolean mGameOver;
+    private boolean mIsGameOver;
+    private boolean mIsGamePaused;
+    private CollisionListener mCollisionListener;
     private Paint mTextPaint;
     private Background mBackground;
     private Obstacle mObstacle;
     private Bird mBird;
-    private CollisionListener mCollisionListener;
 
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -83,8 +84,16 @@ public class DrawingView extends ImageView implements View.OnClickListener, Game
         return false;
     }
 
+    public void resumeGame() {
+        mIsGamePaused = false;
+    }
+
+    public void pauseGame() {
+        mIsGamePaused = true;
+    }
+
     private void init() {
-        mGameOver = false;
+        mIsGameOver = false;
         mFrame = 0;
         mScore = 0;
         mDifficultyLevel = 0;
@@ -117,7 +126,7 @@ public class DrawingView extends ImageView implements View.OnClickListener, Game
 
     @Override
     public void onGameEvent(GameEvent gameEvent) {
-        if (mGameOver) {
+        if (mIsGameOver || mIsGamePaused) {
             return;
         }
 
@@ -137,7 +146,7 @@ public class DrawingView extends ImageView implements View.OnClickListener, Game
 
         if (hasCollisions()) {
             Toast.makeText(getContext(), "Game Over! Your score is " + mScore + "!", Toast.LENGTH_LONG).show();
-            mGameOver = true;
+            mIsGameOver = true;
             return;
         }
 
@@ -146,7 +155,7 @@ public class DrawingView extends ImageView implements View.OnClickListener, Game
 
     @Override
     public void onClick(View v) {
-        if (mGameOver) {
+        if (mIsGameOver) {
             init();
             mBackground.init();
             mObstacle.init();

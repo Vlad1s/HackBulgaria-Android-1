@@ -8,6 +8,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 
 public class MainActivity extends Activity implements DrawingView.CollisionListener {
+    private DrawingView mFlappyGame;
     private MediaPlayer mMainTheme;
     private MediaPlayer mGameOverTheme;
 
@@ -16,9 +17,9 @@ public class MainActivity extends Activity implements DrawingView.CollisionListe
         super.onCreate(savedInstanceState);
 
         DrawingView.setScreenSize(getScreenSize());
-        DrawingView flappy = (DrawingView) LayoutInflater.from(this).inflate(R.layout.activity_main, null);
-        flappy.setOnCollisionListener(this);
-        setContentView(flappy);
+        mFlappyGame = (DrawingView) LayoutInflater.from(this).inflate(R.layout.activity_main, null);
+        mFlappyGame.setOnCollisionListener(this);
+        setContentView(mFlappyGame);
 
         mMainTheme = MediaPlayer.create(this, R.raw.flappy_soundtrack);
         mMainTheme.setLooping(true);
@@ -32,27 +33,29 @@ public class MainActivity extends Activity implements DrawingView.CollisionListe
         });
 
         Background background = new Background(this);
-        flappy.setBackground(background);
+        mFlappyGame.setBackground(background);
 
         Obstacle obstacle = new Obstacle(this);
-        flappy.setObstacle(obstacle);
+        mFlappyGame.setObstacle(obstacle);
 
         Bird bird = new Bird(this);
-        flappy.setBird(bird);
+        mFlappyGame.setBird(bird);
 
         GameClock gameClock = new GameClock();
-        gameClock.subscribe(flappy);
+        gameClock.subscribe(mFlappyGame);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mFlappyGame.resumeGame();
         mMainTheme.start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        mFlappyGame.pauseGame();
         mMainTheme.pause();
     }
 
