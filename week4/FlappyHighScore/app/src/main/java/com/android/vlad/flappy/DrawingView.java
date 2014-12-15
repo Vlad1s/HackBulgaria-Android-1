@@ -11,11 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 public class DrawingView extends ImageView implements View.OnClickListener, GameClock.GameClockListener {
     private static Point sScreenSize;
 
@@ -72,7 +67,6 @@ public class DrawingView extends ImageView implements View.OnClickListener, Game
 
     private boolean hasCollisions() {
         if (mBird.getPosition().y < 0 || mBird.getPosition().y + mBird.getHeight() > DrawingView.getScreenSize().y) {
-            mOnCollisionListener.onCollision();
             return true;
         }
 
@@ -83,29 +77,10 @@ public class DrawingView extends ImageView implements View.OnClickListener, Game
 
         if (mBird.getPosition().y < mObstacle.getHolePosition().y
                 || mBird.getPosition().y + mBird.getHeight() > mObstacle.getHolePosition().y + mObstacle.getHoleHeight()) {
-            mOnCollisionListener.onCollision();
             return true;
         }
 
         return false;
-    }
-
-    private void uploadResults() {
-        try {
-            URL url = new URL("http://95.111.103.224:8080/Flappy/scores");
-            HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-            httpCon.setDoOutput(true);
-            httpCon.setRequestMethod("PUT");
-            httpCon.setRequestProperty("Content-type", "application/json");
-            OutputStreamWriter out = new OutputStreamWriter(httpCon.getOutputStream());
-            out.write("{ \"name\" : \"Vlad\" , \"mail\" : \"vlad@gmail.com\" , \"whereFrom\" : \"OuterSpace\" , \"score\" : " + mScore + "}");
-            out.flush();
-            out.close();
-
-            Toast.makeText(getContext(), "Your score has been uploaded!", Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
-            Toast.makeText(getContext(), "Score upload failed! Unable to connect to server!", Toast.LENGTH_LONG).show();
-        }
     }
 
     public void resumeGame() {
@@ -140,6 +115,14 @@ public class DrawingView extends ImageView implements View.OnClickListener, Game
             return;
         }
 
+        if (hasCollisions()) {
+            Toast.makeText(getContext(), "Game Over! Your score is " + mScore
+                    + "! Tap to start new game!", Toast.LENGTH_LONG).show();
+            mIsGameOver = true;
+            mOnCollisionListener.onCollision(mScore);
+            return;
+        }
+
         mFrame++;
 
         // Every 60 frames (around 1 second) the score gets updated
@@ -152,14 +135,6 @@ public class DrawingView extends ImageView implements View.OnClickListener, Game
             mFrame = 0;
             mDifficultyLevel++;
             GameObject.setDifficultyLevel(mDifficultyLevel);
-        }
-
-        if (hasCollisions()) {
-            Toast.makeText(getContext(), "Game Over! Your score is " + mScore
-                    + "! Tap to start new game!", Toast.LENGTH_LONG).show();
-            mIsGameOver = true;
-            uploadResults();
-            return;
         }
 
         this.invalidate();
@@ -179,6 +154,6 @@ public class DrawingView extends ImageView implements View.OnClickListener, Game
     }
 
     public interface OnCollisionListener {
-        public void onCollision();
+        public void onCollision(int score);
     }
 }

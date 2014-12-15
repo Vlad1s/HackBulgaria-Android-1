@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -59,7 +60,9 @@ public class FragmentLogin extends Fragment {
                     inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                 }
 
-                mOnLoginButtonClickListener.onLoginButtonClick();
+                RadioButton radioButton = (RadioButton) mGroupUniversity.findViewById(mGroupUniversity.getCheckedRadioButtonId());
+                Player player = new Player(mEditUserName.getText().toString(), mEditEmail.getText().toString(), radioButton.getText().toString());
+                mOnLoginButtonClickListener.onLoginButtonClick(player);
             }
         });
     }
@@ -71,6 +74,6 @@ public class FragmentLogin extends Fragment {
     }
 
     public interface OnLoginButtonClickListener {
-        public void onLoginButtonClick();
+        public void onLoginButtonClick(Player player);
     }
 }

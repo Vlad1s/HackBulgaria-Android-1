@@ -86,7 +86,8 @@ public class FragmentGame extends Fragment implements DrawingView.OnCollisionLis
     }
 
     @Override
-    public void onCollision() {
+    public void onCollision(int score) {
+        mOnGameOverListener.onGameOver(score);
         mOnGameOverListener.onPauseMainTheme();
         mGameOverTheme.start();
     }
@@ -99,10 +100,13 @@ public class FragmentGame extends Fragment implements DrawingView.OnCollisionLis
     }
 
     public interface OnGameOverListener {
+        public void onGameOver(int score);
+
         public void onPauseMainTheme();
 
         public void onStartMainTheme();
 
         public boolean isMainThemePlaying();
+
     }
 }

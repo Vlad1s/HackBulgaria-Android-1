@@ -40,16 +40,19 @@
             android:layout_height="wrap_content">
 
             <RadioButton
+                android:id="@+id/option1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/radio_button_fmi" />
 
             <RadioButton
+                android:id="@+id/option2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/radio_button_tu" />
 
             <RadioButton
+                android:id="@+id/option3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/radio_button_tues" />
