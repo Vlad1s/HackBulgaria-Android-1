@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FlappyHighScore</string>
+    <string name="action_settings">Settings</string>
+    <string name="hint_username">username</string>
+    <string name="hint_email">email</string>
+    <string name="radio_button_fmi">FMI</string>
+    <string name="radio_button_tu">TU</string>
+    <string name="radio_button_tues">TUES</string>
+    <string name="button_login">login</string>
+</resources>
