@@ -107,6 +107,5 @@ public class FragmentGame extends Fragment implements DrawingView.OnCollisionLis
         public void onStartMainTheme();
 
         public boolean isMainThemePlaying();
-
     }
 }

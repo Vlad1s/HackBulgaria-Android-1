@@ -115,8 +115,8 @@ public class MainActivity extends Activity implements FragmentLogin.OnLoginButto
             OutputStreamWriter out = new OutputStreamWriter(httpCon.getOutputStream());
             out.write("{ \"name\" : \"" + mPlayer.getName()
                     + "\" , \"mail\" : \"" + mPlayer.getEmail()
-                    + "\" , \"whereFrom\" : \"" + mPlayer.getUniversity() + "\" , \"score\" : "
-                    + score + "}");
+                    + "\" , \"whereFrom\" : \"" + mPlayer.getUniversity()
+                    + "\" , \"score\" : " + score + "}");
             out.flush();
             out.close();
 
