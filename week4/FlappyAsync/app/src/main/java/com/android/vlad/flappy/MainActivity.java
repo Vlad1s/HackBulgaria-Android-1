@@ -4,15 +4,19 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements FragmentLogin.OnLoginButtonClickListener, FragmentGame.OnGameOverListener {
     private FragmentManager mFragmentManager;
-    private Fragment mFragmentGame;
+    private FragmentLogin mFragmentLogin;
     private MediaPlayer mMainTheme;
-    private Player mPlayer;
+    private int mScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +25,10 @@ public class MainActivity extends Activity implements FragmentLogin.OnLoginButto
 
         mFragmentManager = getFragmentManager();
 
-        Fragment fragmentLogin = new FragmentLogin();
-        mFragmentManager.beginTransaction().add(R.id.container, fragmentLogin).commit();
+        Fragment fragmentGame = new FragmentGame();
+        mFragmentManager.beginTransaction().add(R.id.container, fragmentGame).commit();
 
-        mFragmentGame = new FragmentGame();
+        mFragmentLogin = new FragmentLogin();
 
         mMainTheme = MediaPlayer.create(this, R.raw.flappy_soundtrack);
         mMainTheme.setLooping(true);
@@ -32,13 +36,11 @@ public class MainActivity extends Activity implements FragmentLogin.OnLoginButto
 
     @Override
     public void onLoginButtonClick(Player player) {
-        mPlayer = player;
-
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.animator.fade_in, R.animator.slide_out_top, R.animator.slide_in_top, R.animator.fade_out);
-        transaction.replace(R.id.container, mFragmentGame);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        if (isNetworkAvailable()) {
+            new UploadResults(this).execute(player.getName(), player.getEmail(), player.getUniversity(), "" + mScore);
+        } else {
+            Toast.makeText(this, "Score upload failed! No active internet connection!", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -58,7 +60,13 @@ public class MainActivity extends Activity implements FragmentLogin.OnLoginButto
 
     @Override
     public void onGameOver(int score) {
-        new UploadResults(this).execute(mPlayer.getName(), mPlayer.getEmail(), mPlayer.getUniversity(), "" + score);
+        mScore = score;
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.animator.slide_in_top, R.animator.fade_out, R.animator.fade_in, R.animator.slide_out_top);
+        transaction.replace(R.id.container, mFragmentLogin);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
@@ -92,5 +100,11 @@ public class MainActivity extends Activity implements FragmentLogin.OnLoginButto
                             | View.SYSTEM_UI_FLAG_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

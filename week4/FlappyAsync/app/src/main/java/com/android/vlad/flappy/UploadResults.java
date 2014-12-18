@@ -1,7 +1,9 @@
 package com.android.vlad.flappy;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.view.View;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -47,6 +49,12 @@ public class UploadResults extends AsyncTask<String, Void, String> {
         super.onPostExecute(s);
         if (mContext.get() != null) {
             Toast.makeText(mContext.get(), s, Toast.LENGTH_LONG).show();
+
+            View progressBar = ((Activity) mContext.get()).findViewById(R.id.progress_bar);
+            // In case the fragment has already been destroyed
+            if (progressBar != null) {
+                progressBar.setVisibility(View.INVISIBLE);
+            }
         }
     }
 }

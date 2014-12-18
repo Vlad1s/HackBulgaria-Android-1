@@ -54,6 +54,8 @@ public class FragmentLogin extends Fragment {
                     return;
                 }
 
+                getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+
                 // Used to hide the software keyboard if needed
                 if (getActivity().getCurrentFocus() != null) {
                     InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
