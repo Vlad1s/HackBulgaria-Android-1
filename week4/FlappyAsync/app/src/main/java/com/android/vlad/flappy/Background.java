@@ -12,7 +12,7 @@ public class Background extends GameObject {
     private Bitmap mBitmapBackground;
     private Context mContext;
 
-
+    // TODO: Redraw the background instead of changing its position - should look more fluid
     public Background(Context context) {
         this.mContext = context;
 

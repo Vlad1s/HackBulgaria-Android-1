@@ -31,6 +31,8 @@ public class FragmentLogin extends Fragment {
         }
     }
 
+    // TODO: Redesign fragment layout - background should be black, text should be white
+    // TODO: Consider moving universities name to an enum instead of being hardcoded
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

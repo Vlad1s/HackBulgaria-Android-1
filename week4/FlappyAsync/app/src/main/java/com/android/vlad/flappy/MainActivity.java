@@ -18,6 +18,7 @@ public class MainActivity extends Activity implements FragmentLogin.OnLoginButto
     private MediaPlayer mMainTheme;
     private int mScore;
 
+    // TODO: Make all toasts appear for Toast.LENGTH_SHORT time
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
